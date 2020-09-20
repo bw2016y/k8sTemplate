@@ -1,0 +1,164 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: slave2
+  labels:
+    name: slave2
+spec:
+  selector:
+    name: slave2
+  clusterIP: None
+  ports:
+    - port: 50070
+      name: p1
+    - port: 22
+      name: p2
+    - port: 1880
+      name: p3
+    - port: 10010
+      name: p4
+    - port: 1883
+      name: p5
+    - port: 9083
+      name: p6
+    - port: 1884
+      name: p7
+    - port: 9000
+      name: p8
+    - port: 50090
+      name: p9
+    - port: 3306
+      name: p10
+    - port: 10002
+      name: p11
+    - port: 8088
+      name: p12
+    - port: 7070
+      name: p13
+    - port: 8030
+      name: p14
+    - port: 8031
+      name: p15
+    - port: 8032
+      name: p16
+    - port: 8033
+      name: p17
+    - port: 8034
+      name: p18
+    - port: 7077
+      name: p19
+    - port: 2181
+      name: p20
+    - port: 34283
+      name: p21
+    - port: 9005
+      name: p22
+    - port: 8080
+      name: p23
+    - port: 3888
+      name: p24
+    - port: 80
+      name: p25
+    - port: 9009
+      name: p26
+    - port: 50075
+      name: p27
+    - port: 36963
+      name: p28
+    - port: 50020
+      name: p29
+    - port: 16020
+      name: p30
+    - port: 35286
+      name: p31
+    - port: 36983
+      name: p32
+    - port: 13562
+      name: p33
+    - port: 16030
+      name: p34
+    - port: 16000
+      name: p35
+    - port: 8040
+      name: p36
+    - port: 7337
+      name: p37
+    - port: 16010
+      name: p38
+    - port: 8042
+      name: p39
+    - port: 33807
+      name: p40
+    - port: 8081
+      name: p41
+    - port: 50010
+      name: p42
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: slave2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: slave2
+    spec:
+      hostname: slave2
+      nodeSelector:
+        slave: 3
+      containers:
+        - name: slave2
+          image:  daslab1/daslabslave2:v6
+          imagePullPolicy: IfNotPresent
+          command: ['/bin/bash','/run_slave.sh']
+          ports:
+            - containerPort: 50070
+            - containerPort: 22
+            - containerPort: 1880
+            - containerPort: 10010
+            - containerPort: 1883
+            - containerPort: 9083
+            - containerPort: 1884
+            - containerPort: 9000
+            - containerPort: 50090
+            - containerPort: 3306
+            - containerPort: 10002
+            - containerPort: 8088
+            - containerPort: 7070
+            - containerPort: 8030
+            - containerPort: 8031
+            - containerPort: 8032
+            - containerPort: 8033
+            - containerPort: 8034
+            - containerPort: 7077
+            - containerPort: 2181
+            - containerPort: 34283
+            - containerPort: 9005
+            - containerPort: 8080
+            - containerPort: 3888
+            - containerPort: 80
+            - containerPort: 9009
+            - containerPort: 50075
+            - containerPort: 36963
+            - containerPort: 50020
+            - containerPort: 16020
+            - containerPort: 35286
+            - containerPort: 36983
+            - containerPort: 13562
+            - containerPort: 16030
+            - containerPort: 16000
+            - containerPort: 8040
+            - containerPort: 7337
+            - containerPort: 16010
+            - containerPort: 8042
+            - containerPort: 33807
+            - containerPort: 8081
+            - containerPort: 50010
+
+
+          env:
+            - name: TEST_ENV
+              value: slave2test
+
