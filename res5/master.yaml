@@ -73,11 +73,14 @@ spec:
       name: p31
 
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: master
 spec:
+  selector:
+    matchLabels:
+      name: master
   replicas: 1
   template:
     metadata:

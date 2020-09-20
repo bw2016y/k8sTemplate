@@ -102,11 +102,14 @@ spec:
     - port: 40613
       name: p46
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: slave1
 spec:
+  selector:
+    matchLabels:
+      name: slave1
   replicas: 1
   template:
     metadata:

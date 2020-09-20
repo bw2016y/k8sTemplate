@@ -94,11 +94,14 @@ spec:
     - port: 50010
       name: p42
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: slave2
 spec:
+  selector:
+    matchLabels:
+      name: slave2
   replicas: 1
   template:
     metadata:
