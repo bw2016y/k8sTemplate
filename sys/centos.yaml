@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: centos
+spec:
+  selector:
+    name: mycentos
+  ports:
+    - port: 5656
+      targetPort: 22
+      nodePort: 30777
+  type: NodePort
+
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sysdep
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: mycentos
+    spec:
+      hostname: centos
+      containers:
+        - name: centos
+          image: centos
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 22
+              name: ssh
+          command: ["/sbin/init"]
+  selector:
+    matchLabels:
+      name: mycentos
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sysdep2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: mycentos2
+    spec:
+      hostname: centos2
+      containers:
+        - name: centos
+          image: centos
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 22
+              name: ssh
+          command: ["/sbin/init"]
+  selector:
+    matchLabels:
+      name: mycentos2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: centosfornone3
+spec:
+  selector:
+    name: mycentos3
+  ports:
+    - port: 5656
+      targetPort: 22
+  clusterIP: None

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: target1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: target
+    spec:
+      hostname: target
+      containers:
+        - name: nginx-init
+          image: nginx
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+      initContainers:
+        - name: init-db
+          image: busybox
+          command: ['sh','-c','until ping -w 3 centosfornone3 ; do echo waiting ; sleep 2;  done;']
+  selector:
+    matchLabels:
+      app: target

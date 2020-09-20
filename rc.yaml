@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: myapprc
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: myapp
+        release: test
+    spec:
+      containers:
+        - name: mytestapp
+          image: daslab1/myapp
+          ports:
+            - containerPort: 8080

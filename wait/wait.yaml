@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: init-test
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: init-test
+    spec:
+      containers:
+        - name: nginx-init
+          image: nginx
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+      initContainers:
+        - name: init-db
+          image: busybox
+          command: ['/bin/bash','-c','until nslookup target; do echo waiting for shit > /out.txt ; sleep 2; done;']
+  selector:
+    matchLabels:
+      app: init-test

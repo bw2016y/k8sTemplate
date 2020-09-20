@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: namev
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /data/k8s/name
+    server: 172.17.45.74
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: data1v
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /data/k8s/data1
+    server: 172.17.45.74
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: data2v
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /data/k8s/data2
+    server: 172.17.45.74
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: hisv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /data/k8s/his
+    server: 172.17.45.74

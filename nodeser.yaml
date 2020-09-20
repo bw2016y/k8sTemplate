@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myappser
+spec:
+  selector:
+    app: myapp
+    release: test
+  ports:
+    - port: 8989
+      targetPort: 8080
+  type: NodePort
+  sessionAffinity: ClientIP
