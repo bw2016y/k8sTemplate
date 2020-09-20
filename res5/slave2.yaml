@@ -108,9 +108,16 @@ spec:
       labels:
         name: slave2
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: slave
+                    operator: In
+                    values:
+                      - '3'
       hostname: slave2
-      nodeSelector:
-        slave: 3
       containers:
         - name: slave2
           image:  daslab1/daslabslave2:v6

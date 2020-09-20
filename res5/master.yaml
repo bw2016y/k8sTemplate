@@ -88,8 +88,15 @@ spec:
         name: master
     spec:
       hostname: master
-      nodeSelector:
-        slave: 1
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: slave
+                    operator: In
+                    values:
+                      - '1'
       containers:
         - name: master
           image:  daslab1/daslabmaster:v6
